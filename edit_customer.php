@@ -61,18 +61,17 @@ if (!$result) {
 
 <nav class="navbar">
     <div class="max-w-full h-16 bg-purple-900 flex items-center justify-between px-14">
-        <div class=""><a href=""><img src="asset/logo.png" alt="" class="w-56"></a></div>
-        <div class="flex justify-between w-36">
-            <a href="" class="text-white"><i data-feather="shopping-cart"></i></a>
-            <a href="customer/profilecust.php" class="text-white"><i data-feather="user"></i></a>
-            <a href="logout.php" class="text-white"><i data-feather="log-out"></i></a>
+        <div class=""><a href="admin_dashboard.php"><img src="asset/logo.png" alt="" class="w-56"></a></div>
+        <div class="flex justify-evenly w-36">
+            <a href="edit_admin.php" class="text-white"><i data-feather="user"></i></a>
+            <a href="logoutadmin.php" class="text-white"><i data-feather="log-out"></i></a>
         </div>
     </div>
 </nav>
 
-<div class="container mx-auto p-6">
-    <h1 class="text-3xl font-semibold mb-4">Edit Customer Data</h1>
 
+    <!-- Display the list of customers in a table with no lines -->
+    <div class="container max-w-xs bg-purple-900 px-3 py-4 text-center rounded-lg mx-auto mt-5 font-bold text-white text-lg"><h1>Edit Data Customer</h1></div>
     <?php if (!empty($errors)): ?>
         <div class="error">
             <?php foreach ($errors as $error): ?>
@@ -80,34 +79,34 @@ if (!$result) {
             <?php endforeach; ?>
         </div>
     <?php endif; ?>
-
-    <!-- Display the list of customers in a table with no lines -->
-    <table class="w-full border-collapse">
-        <thead>
-            <tr class="border-b border-gray-300">
-                <th class="p-4">ID</th>
-                <th class="p-4">Nama</th>
-                <th class="p-4">No. Handphone</th>
-                <th class="p-4">Alamat</th>
-                <th class="p-4">Email</th>
-                <th class="p-4">Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php while ($row = mysqli_fetch_assoc($result)): ?>
-                <tr class="border-b border-gray-300">
-                    <td class="p-4"><?php echo $row['id_customer']; ?></td>
-                    <td class="p-4"><?php echo $row['nama']; ?></td>
-                    <td class="p-4"><?php echo $row['no_hp']; ?></td>
-                    <td class="p-4"><?php echo $row['alamat']; ?></td>
-                    <td class="p-4"><?php echo $row['email']; ?></td>
-                    <td class="p-4">
-                        <a href="customer/profilecust.php?id=<?php echo $row['id_customer']; ?>" class="text-blue-500 hover:underline">Edit</a>
-                    </td>
+    <table class="mx-auto mt-5 bg-purple-400">
+                <thead>
+                <tr>
+                <th class="bg-purple-900 text-white border border-slate-600 p-2">ID</th>
+                <th class="bg-purple-900 text-white border border-slate-600 p-2">Nama</th>
+                <th class="bg-purple-900 text-white border border-slate-600 p-2">No. Handphone</th>
+                <th class="bg-purple-900 text-white border border-slate-600 p-2">Alamat</th>
+                <th class="bg-purple-900 text-white border border-slate-600 p-2">Email</th>
+                <th class="bg-purple-900 text-white border border-slate-600 p-2">Aksi</th>
                 </tr>
-            <?php endwhile; ?>
-        </tbody>
-    </table>
+                </thead>
+                <tbody>
+                <?php while ($row = mysqli_fetch_assoc($result)): ?>
+                <tr>
+                    <td class="border border-slate-700 p-2"><?php echo $row['id_customer']; ?></td>
+                    <td class="border border-slate-700 p-2 text-center"><?php echo $row['nama']; ?></td>
+                    <td class="border border-slate-700 p-2 text-center"><?php echo $row['no_hp']; ?></td>
+                    <td class="border border-slate-700 p-2 text-center"><?php echo $row['alamat']; ?></td>
+                    <td class="border border-slate-700 p-2 text-center"><?php echo $row['email']; ?></td>
+                    <td class="border border-slate-700 p-2 text-center"><button class="px-3 py-2 bg-purple-900 hover:bg-purple-700 text-white rounded-lg" name="proses" id="proses">
+                    <a href="customer/profilecust.php?id=<?php echo $row['id_customer']; ?>">Edit</a>
+                </tr>
+                <?php endwhile; ?>
+                </tbody>
+            
+        
+        </table>
+            
 </div>
 
 <script>

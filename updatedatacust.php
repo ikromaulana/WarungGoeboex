@@ -1,18 +1,54 @@
-<title>Document</title>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/feather-icons"></script>
-    <?php include "header.php"; ?>
-    
-    <?php
-include "koneksi.php"; 
-	session_start();
-	$id_customer=$_SESSION['id_customer'];
-    $query="SELECT * FROM dbcustomer WHERE id_customer='$id_customer'";
-    $result=mysqli_query($koneksi,$query);
-	?>
+</head>
+<body>
+<?php include "header.php"; ?>
 
-    <div class="max-w-lg rounded-xl mx-auto shadow-xl p-5 mt-8 backdrop-blur-md">
-        <h3 class="text-xl font-bold mx-auto text-center mb-5 text-purple-900">Daftar dulu yuk!</h3>
+<?php
+include "koneksi.php";
+session_start();
+
+// Check if user is logged in
+if (!isset($_SESSION['nama'])) {
+    header("Location: login.php"); // Redirect to login page if not logged in
+    exit();
+}
+
+$nama = $_SESSION['nama'];
+$query = "SELECT * FROM dbcustomer WHERE nama='$nama'";
+$result = mysqli_query($koneksi, $query);
+
+if (mysqli_num_rows($result) > 0) {
+    $datauser = mysqli_fetch_assoc($result);
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Handle form submission and update user data in the database
+    $newNama = $_POST['nama']; // Capture new name
+    $newNoHp = $_POST['no_hp'];
+    $newAlamat = $_POST['alamat'];
+    $newEmail = $_POST['email'];
+
+    // Update query with new name
+    $updateQuery = "UPDATE dbcustomer SET nama='$newNama', no_hp='$newNoHp', alamat='$newAlamat', email='$newEmail' WHERE nama='$nama'";
+    mysqli_query($koneksi, $updateQuery);
+
+    // Update the session variable with the new name
+    $_SESSION['nama'] = $newNama;
+
+    // Redirect to profile page with updated data
+    header("Location: customer/profilecust.php");
+    exit();
+}
+?>
+
+<div class="container max-w-xs bg-purple-900 px-3 py-4 text-center rounded-lg mx-auto mt-5 font-bold text-white text-lg shadow-lg"><h1>Edit Profile Customer</h1></div>
+    <div class="max-w-lg rounded-xl mx-auto shadow-xl p-5 mt-8 bg-purple-200 mb-10">
         <form action="" method="post">
         <label for="nama">
             <span class="block font-semibold mb-1 -mt-3">Nama Lengkap</span>
@@ -36,26 +72,12 @@ include "koneksi.php";
         <p class="text-sm px-3 py-2 text-pink-500 invisible peer-invalid:visible">Email tidak valid</p>
         </label>
 
-        <input type="submit" value="Simpan" name="proses" id="proses" class="my-5 px-5 py-2 rounded-xl bg-purple-900 text-white shadow-lg hover:bg-purple-600 block mx-auto hover:transition -mb-0.5 -mt-0.5">
+        <button class="px-5 py-2 bg-purple-900 hover:bg-purple-600 transition rounded-xl shadow-lg text-white block mx-auto" name="proses" id="proses">Simpan</button>
         </form>
+        
+</div>
 
-        <?php
-include "koneksi.php";
-if(isset($_POST['proses'])){
-    $nama=mysqli_real_escape_string($koneksi, $_POST['nama']);
-    $no_hp=mysqli_real_escape_string($koneksi, $_POST['no_hp']);
-    $alamat=mysqli_real_escape_string($koneksi, $_POST['alamat']);
-    $email=mysqli_real_escape_string($koneksi, $_POST['email']);
-    $sql1="UPDATE dbcustomer SET nama='$nama', no_hp='$no_hp', alamat='$alamat', email='$email' WHERE id_customer='$id_customer';";
-    if(mysqli_query($koneksi,$sql1)){
-        echo'<script>alert("Data Profile Berhasil di Update");
-        window.location.href="customer/profilecust.php";</script>';
-    }else{
-        echo "Error";
-    }
+</body>
+</html>
 
-}
-?>
-    <script>
-      feather.replace();
-    </script>
+    

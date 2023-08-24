@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register - Warung Goeboex</title>
+    <title>RegisterAdm - Warung Goeboex</title>
     <script src="https://cdn.tailwindcss.com"></script>
     </head>
 <body>
@@ -16,7 +16,7 @@
 
         <!-- Content -->
          <div class="max-w-lg rounded-xl mx-auto shadow-xl p-5 mt-3 backdrop-blur-md">
-        <h3 class="text-xl font-bold mx-auto text-center mb-5 text-purple-900">Daftar dulu yuk!</h3>
+        <h3 class="text-xl font-bold mx-auto text-center mb-5 text-purple-900">Daftar Admin</h3>
         <form action="" method="post">
         <label for="nama">
             <span class="block font-semibold mb-1 -mt-3">Nama Lengkap</span>
@@ -45,13 +45,13 @@
         </label>
         <p class="py-2 font-semibold">Sudah punya akun? <a href="login.php" class="font-bold text-purple-900">Masuk</a></p>
         <!-- <button class="my-5 px-5 py-2 rounded-xl bg-purple-900 text-white shadow-lg hover:bg-purple-600 block mx-auto hover:transition -mb-0.5 -mt-0.5" value="Register" name="register" id="register">Daftar</button> -->
-        <input type="submit" value="Daftar" name="register" id="register" class="my-5 px-5 py-2 rounded-xl bg-purple-900 text-white shadow-lg hover:bg-purple-600 block mx-auto hover:transition -mb-0.5 -mt-0.5">
+        <input type="submit" value="Daftar" name="register1" id="register1" class="my-5 px-5 py-2 rounded-xl bg-purple-900 text-white shadow-lg hover:bg-purple-600 block mx-auto hover:transition -mb-0.5 -mt-0.5">
         </form>
     </div>
     </div>
 <?php
 include 'koneksi.php';
-if(isset($_POST['register'])){
+if(isset($_POST['register1'])){
     // kalo btn register diklik
     $nama=$_POST['nama'];
     $no_hp=$_POST['no_hp'];
@@ -62,17 +62,17 @@ if(isset($_POST['register'])){
     $passenkrip=password_hash($password, PASSWORD_DEFAULT);
 
     // insert database
-    $insert = mysqli_query($koneksi,"INSERT INTO dbcustomer (nama,no_hp,alamat,email,password) values ('$nama','$no_hp','$alamat','$email','$passenkrip')");
+    $insert = mysqli_query($koneksi,"INSERT INTO dbadmin (nama,no_hp,alamat,email,password) values ('$nama','$no_hp','$alamat','$email','$passenkrip')");
 
 
     if($insert){
         // kalo berhasil langsung masuk ke page login
-        header('location:login.php');
+        header('location:loginadmin.php');
     }
     else{
         // kalo gagal muncul peringatan dan tetap di page register
         echo'<script>alert("Registration Failed!");
-        window.location.href="register.php";</script>';
+        window.location.href="registeradmin.php";</script>';
     }
 }
 ?>

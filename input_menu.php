@@ -8,7 +8,15 @@
     <script src="https://unpkg.com/feather-icons"></script>
 </head>
 <body>
-    <?php include "header.php"; ?>
+<nav class="navbar">
+    <div class="max-w-full h-16 bg-purple-900 flex items-center justify-between px-14">
+        <div class=""><a href="admin_dashboard.php"><img src="asset/logo.png" alt="" class="w-56"></a></div>
+        <div class="flex justify-evenly w-36">
+            <a href="edit_admin.php" class="text-white"><i data-feather="user"></i></a>
+            <a href="logoutadmin.php" class="text-white"><i data-feather="log-out"></i></a>
+        </div>
+    </div>
+</nav>
 <?php
 include "koneksi.php";
 if(isset($_POST['input'])){
@@ -44,7 +52,7 @@ if (!empty($_FILES["nama_file"]["tmp_name"]))
 
 
 			?>
-            <div class="max-w-lg rounded-xl mx-auto shadow-xl p-5 mt-8 backdrop-blur-md">
+            <div class="max-w-lg rounded-xl mx-auto shadow-xl p-5 mt-8 bg-purple-200">
             <form action="input_menu.php" method="post" enctype="multipart/form-data" name="form1" id="form1">
             <label for="id">
             <span class="block font-semibold mb-1 -mt-3">Id Produk</span>
@@ -64,8 +72,10 @@ if (!empty($_FILES["nama_file"]["tmp_name"]))
             <span class="block font-semibold mb-1 -mt-3">Foto Produk</span>
             <input type="file" name="nama_file" id="nama_file" class="px-3 py-2 border shadow rounded-lg w-full text-sm block focus:ring focus:outline-none focus:ring-purple-900 hover:bg-slate-200 mb-10"/>
 
-            <input type="submit" value="Simpan" name="input" class="my-5 px-5 py-2 rounded-xl bg-purple-900 text-white shadow-lg hover:bg-purple-600 block mx-auto hover:transition -mb-0.5 -mt-0.5">&nbsp;
+            
             </label>
+       
+            <button class="px-5 py-2 bg-purple-900 hover:bg-purple-600 transition rounded-xl shadow-lg text-white block mx-auto" name="input" id="proses">Simpan</button>
             </form>
             </div>
 

@@ -19,9 +19,8 @@
             </div>
         </div>
     </nav>
-    <div class="container max-w-2xl bg-red-500 mx-auto mt-3 text-center border rounded-lg flex">
-    </div>
     <form action="" method="post">
+        <div class="container max-w-xs bg-purple-900 px-3 py-4 text-center rounded-lg mx-auto mt-5 font-bold text-white text-lg"><h1>Data Transaksi</h1></div>
     <table class="table-auto border-collapse border border-slate-500 mx-auto mt-5 bg-purple-400">
         <thead>
             <tr class="bg-purple-900 text-white">

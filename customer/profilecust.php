@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Profile Customer</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/feather-icons"></script>
 </head>
@@ -13,8 +13,8 @@
 <?php
 include "koneksi.php"; 
 	session_start();
-	$id_customer=$_SESSION['id_customer'];
-    $query="SELECT * FROM dbcustomer WHERE id_customer='$id_customer'";
+	$nama=$_SESSION['nama'];
+    $query="SELECT * FROM dbcustomer WHERE nama='$nama'";
     $result=mysqli_query($koneksi,$query);
 	?>
     <?php
@@ -27,28 +27,33 @@ include "koneksi.php";
         $_SESSION["email"]=$datauser["email"];
     }
     ?>
-
-<table class="table-auto border-collapse border border-slate-500 mx-auto mt-10 bg-purple-400">
+<div class="container max-w-xs bg-purple-900 px-3 py-4 text-center rounded-lg mx-auto mt-5 font-bold text-white text-lg shadow-lg"><h1>Profile Customer</h1></div>
+<table class="mx-auto mt-5 bg-purple-400">
   <thead>
-    <tr class="bg-purple-900 text-white">
-      <th class="border border-slate-600 p-2">Id</th>
-      <th class="border border-slate-600 p-2">Nama</th>
-      <th class="border border-slate-600 p-2">No. Handphone</th>
-      <th class="border border-slate-600">Alamat</th>
-      <th class="border border-slate-600">Email</th>
+    <tr class="">
+      <th class="bg-purple-900 text-white border border-slate-600 p-2">Id</th>
+      <td class="border border-slate-700 p-2"><?php echo $_SESSION['id_customer']; ?></td>
+    </tr>
+    <tr class="">
+      <th class="bg-purple-900 text-white border border-slate-600 p-2">Nama</th>
+      <td class="border border-slate-700 p-2"><?php echo $_SESSION['nama']; ?></td>
+    </tr>
+    <tr>
+    <th class="bg-purple-900 text-white border border-slate-600 p-2">No. Handphone</th>
+    <td class="border border-slate-700 p-2"><?php echo $_SESSION['no_hp']; ?></td>
+    </tr>
+    <tr>
+    <th class="bg-purple-900 text-white border border-slate-600">Alamat</th>
+    <td class="border border-slate-700 p-2"><?php echo $_SESSION['alamat']; ?></td>
+    </tr>
+    <tr>
+    <th class="bg-purple-900 text-white border border-slate-600">Email</th>
+    <td class="border border-slate-700 p-2"><?php echo $_SESSION['email']; ?></td>
     </tr>
   </thead>
-  <tbody>
-  <tr>
-  <td class="border border-slate-700 p-2"><?php echo $_SESSION['id_customer']; ?></td>
-    <td class="border border-slate-700 p-2"><?php echo $_SESSION['nama']; ?></td>
-    <td class="border border-slate-700 p-2 text-center"><?php echo $_SESSION['no_hp']; ?></td>
-    <td class="border border-slate-700 p-2"><?php echo $_SESSION['alamat']; ?></td>
-    <td class="border border-slate-700 p-2"><?php echo $_SESSION['email']; ?></td>
-  </tr>
-  </tbody>
 </table>
-<div class="flex justify-center mt-3"><button class="px-5 py-2 bg-purple-900 hover:bg-purple-600 transition rounded-xl shadow-lg text-white"><a href="../updatedatacust.php">Edit</a></button></div>
+<div class="flex justify-center mt-3"> <a href="../updatedatacust.php" class="px-5 py-2 bg-purple-900 hover:bg-purple-600 transition rounded-xl shadow-lg text-white">Edit</a>
+</div>
 
 
 
@@ -56,4 +61,3 @@ include "koneksi.php";
       feather.replace();
     </script>
 </body>
-</html>

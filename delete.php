@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (empty($_SESSION['nama'])){
+if (empty($_SESSION['id'])){
 	header('location:home.php');	
 } else {
 	include "koneksi.php";
@@ -8,7 +8,7 @@ if (empty($_SESSION['nama'])){
             //input po transit dan tampil ke tabel
             if(isset($_GET['id'])){
                 $id = $_GET['id'];
-                $sql = mysqli_query($koneksi, "SELECT * FROM dbmenu WHERE id='$id'");
+                $sql = mysqli_query($koneksi, "SELECT * FROM dbtransaksi WHERE id='$id'");
              if(mysqli_num_rows($sql) == 0){
 				echo "<script>window.location = 'javascript:history.back()'</script>";
 			}else{
@@ -23,9 +23,13 @@ if (empty($_SESSION['nama'])){
         // masukkan dalam tabel penjualan
         
         $nomor = date("YmdHis");
-						$insert = mysqli_query($koneksi, "INSERT INTO dbtransaksi (id, nama_menu, harga_menu) VALUES ('$id', '$nama_menu', '$harga_menu');") or die(mysqli_error());
+		
                         
-                        echo "<script>alert('Produk ditambahkan ke keranjang!'); window.location = 'javascript:history.back()'</script>";
+
+        mysqli_query($koneksi,"delete from dbtransaksi where id='$_GET[id]'");
+        echo "Data Berhasil Terhapus";
+        echo "<meta http-equiv=refresh content=2;URL='customer.php'>";
+                    
 			} 
    		
 } 

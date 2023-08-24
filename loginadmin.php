@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Warung Goeboex</title>
+    <title>Admin - Warung Goeboex</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
@@ -15,7 +15,7 @@
 
         <!-- Content -->
          <div class="max-w-lg rounded-xl mx-auto shadow-xl p-5 mt-28 backdrop-blur-md">
-        <h3 class="text-xl font-bold mx-auto text-center mb-5 text-purple-900">Selamat datang</h3>
+        <h3 class="text-xl font-bold mx-auto text-center mb-5 text-purple-900">Admin</h3>
         <form action="" method="post">
         <label for="nama">
             <span class="block font-semibold mb-1 -mt-3">Nama Lengkap</span>
@@ -41,7 +41,7 @@ if(isset($_POST['login'])){
 
 
     // check database
-    $cekdb = mysqli_query($koneksi,"SELECT * FROM dbcustomer where nama='$nama'");
+    $cekdb = mysqli_query($koneksi,"SELECT * FROM dbadmin where nama='$nama'");
     $hitung = mysqli_num_rows($cekdb);
     $pw = mysqli_fetch_array($cekdb);
     $pwnow = $pw['password'];
@@ -53,18 +53,18 @@ if(isset($_POST['login'])){
         // Verifikasi password
         if(password_verify($password,$pwnow)){
         // Kalo password benar = direct page home
-        header('location:home.php');
+        header('location:admin_dashboard.php');
         }else{
         // kalo pass salah : muncul alert
         echo'<script>alert("Password Salah!");
-        window.location.href="login.php";</script>';
+        window.location.href="registeradmin.php";</script>';
         }
 
     }
     else{
         // kalo gagal muncul peringatan dan tetap di page register
         echo'<script>alert("Login Failed!");
-        window.location.href="register.php";</script>';
+        window.location.href="registeradmin.php";</script>';
     }
 }
 ?>

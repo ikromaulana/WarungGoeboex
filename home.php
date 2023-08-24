@@ -20,7 +20,6 @@ include "koneksi.php";
 </head>
 <body>
 
-
     <!-- Navbar -->
     <nav class="max-w-full h-16 bg-purple-900 flex items-center justify-between px-14">
         <div class=""><a href=""><img src="asset/logo.png" alt="" class="w-56"></a></div>
@@ -34,15 +33,15 @@ include "koneksi.php";
     <!-- End-navbar -->
 
     <!-- Hello Card -->
-    <div class="container shadow-lg border rounded-lg max-w-lg h-20 mx-auto mt-10 flex items-center justify-center">
-    <p class="">Halo, <span class="font-semibold"><?php echo $_SESSION['nama']; ?></span>. Mau makan apa hari ini?</p>
+    <div class="container shadow-lg border rounded-lg max-w-lg h-20 mx-auto mt-10 flex items-center justify-center bg-purple-900">
+    <p class="font-semibold text-white">Halo, <span class="font-extrabold"><?php echo $_SESSION['nama']; ?></span>. Mau makan apa hari ini?</p>
     </div>
     <!-- End Hello Card -->
 
     <!-- Menu -->
     <form action="checkbox_process.php" method="get">
     
-    <div class="max-w-5xl mx-auto border rounded-lg shadow-lg p-5 mt-10 columns-3 mb-10">
+    <div class="max-w-5xl mx-auto border rounded-2xl shadow-lg p-5 mt-10 columns-3 mb-10 py-10 bg-purple-200">
         <div class="w-52 h-52 bg-cover mx-auto">
             <center>
             <?php
@@ -51,8 +50,8 @@ include "koneksi.php";
                     ?>
                     <div class=""><img src="<?php echo $data['gambar']; ?>" alt=""></div>
                     <div class="">
-                <h3 class=""><?php echo $data['nama_menu']; ?></h3>
-                <p><?php echo $data['harga_menu']; ?></p>
+                <h3 class="font-bold mt-3"><?php echo $data['nama_menu']; ?></h3>
+                <p class="font-semibold mb-3"><?php echo $data['harga_menu']; ?></p>
                 <!-- <input type="checkbox" name="jumlah" value="option"> Pilih -->
                 
                 <a href="addtocart.php?id=<?php echo $data['id'];?>" class="my-5 px-5 py-2 rounded-xl bg-purple-900 text-white shadow-lg hover:bg-purple-600 block mx-auto hover:transition transition -mt-0.5">Beli &raquo;</a>
@@ -67,7 +66,6 @@ include "koneksi.php";
             
         </div>
         
-    </div>
 
     <!--  -->
 
@@ -75,7 +73,7 @@ include "koneksi.php";
     </form>
         
     <!-- end menu -->
-
+    </div>
     <script>
       feather.replace();
     </script>
