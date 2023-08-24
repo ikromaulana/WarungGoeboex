@@ -1,0 +1,115 @@
+<?php
+include "koneksi.php"; // Include your database connection
+
+// Initialize variables
+$errors = [];
+
+// Handle POST request for updating customer data
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $id_customer = $_POST['id_admin'];
+    $nama = $_POST['nama'];
+    $email = $_POST['email'];
+
+    // Validation
+    if (empty($nama)) {
+        $errors[] = "Nama is required";
+    }
+    // Add more validation rules here
+
+    // If there are no errors, update data
+    if (empty($errors)) {
+        $query = "UPDATE dbadmin SET nama=?, email=? WHERE id_admin=?";
+        $stmt = mysqli_prepare($koneksi, $query);
+        mysqli_stmt_bind_param($stmt, "ssssi", $nama, $email, $id_admin);
+        
+        if (mysqli_stmt_execute($stmt)) {
+            // Redirect or display a success message
+            header("Location: edit_admin.php?id=$id_customer&success=1");
+            exit();
+        } else {
+            // Handle database update error
+            $errors[] = "Error updating data: " . mysqli_error($koneksi);
+        }
+    }
+}
+
+// Fetch the list of customers
+$query = "SELECT * FROM dbadmin";
+$result = mysqli_query($koneksi, $query);
+
+// Check for success or error
+if (!$result) {
+    echo "Error fetching admin data: " . mysqli_error($koneksi);
+    exit();
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Customer Data</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.15/dist/tailwind.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body class="bg-gray-100">
+
+<nav class="navbar">
+    <div class="max-w-full h-16 bg-purple-900 flex items-center justify-between px-14">
+        <div class=""><a href=""><img src="asset/logo.png" alt="" class="w-56"></a></div>
+        <div class="flex justify-between w-36">
+            <a href="" class="text-white"><i data-feather="shopping-cart"></i></a>
+            <a href="" class="text-white"><i data-feather="user"></i></a>
+            <a href="logout.php" class="text-white"><i data-feather="log-out"></i></a>
+        </div>
+    </div>
+</nav>
+
+<div class="container mx-auto p-6">
+    <h1 class="text-3xl font-semibold mb-4">Edit Customer Data</h1>
+
+    <?php if (!empty($errors)): ?>
+        <div class="error">
+            <?php foreach ($errors as $error): ?>
+                <p><?php echo $error; ?></p>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
+
+    <!-- Display the list of customers in a table with no lines -->
+    <table class="w-full border-collapse">
+        <thead>
+            <tr class="border-b border-gray-300">
+                <th class="p-4">ID</th>
+                <th class="p-4">Nama</th>
+                <th class="p-4">Email</th>
+                <th class="p-4">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php while ($row = mysqli_fetch_assoc($result)): ?>
+                <tr class="border-b border-gray-300">
+                    <td class="p-4"><?php echo $row['id_admin']; ?></td>
+                    <td class="p-4"><?php echo $row['nama']; ?></td>
+                    <td class="p-4"><?php echo $row['email']; ?></td>
+                    <td class="p-4">
+                        <a href="customer/profilecust.php?id=<?php echo $row['id_admin']; ?>" class="text-blue-500 hover:underline">Edit</a>
+                    </td>
+                </tr>
+            <?php endwhile; ?>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    feather.replace();
+</script>
+
+</body>
+</html>
+
+
+
