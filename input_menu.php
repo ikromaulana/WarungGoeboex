@@ -27,14 +27,14 @@ if (!empty($_FILES["nama_file"]["tmp_name"]))
 	$jenis_gambar=$_FILES['nama_file']['type'];
         $id       = $_POST['id'];
 		$nama_menu  = $_POST['nama_menu'];
-        $harga      = $_POST['harga'];
+        $harga      = $_POST['harga_menu'];
         
 		
 	if($jenis_gambar=="image/jpeg" || $jenis_gambar=="image/jpg" || $jenis_gambar=="image/gif" || $jenis_gambar=="image/x-png")
 	{			
 		$gambar = $namafolder . basename($_FILES['nama_file']['name']);		
 		if (move_uploaded_file($_FILES['nama_file']['tmp_name'], $gambar)) {
-			$sql="INSERT INTO dbmenu(id,nama_menu,harga,gambar) VALUES
+			$sql="INSERT INTO dbmenu(id,nama_menu,harga_menu,gambar) VALUES
             ('$id','$nama_menu','$harga','$gambar')";
 			$res=mysqli_query($koneksi, $sql) or die (mysqli_error());
 			//echo "Gambar berhasil dikirim ke direktori".$gambar;
@@ -73,11 +73,12 @@ if (!empty($_FILES["nama_file"]["tmp_name"]))
             <input type="file" name="nama_file" id="nama_file" class="px-3 py-2 border shadow rounded-lg w-full text-sm block focus:ring focus:outline-none focus:ring-purple-900 hover:bg-slate-200 mb-10"/>
 
             
+            
+            </div>
             </label>
-       
             <button class="px-5 py-2 bg-purple-900 hover:bg-purple-600 transition rounded-xl shadow-lg text-white block mx-auto" name="input" id="proses">Simpan</button>
             </form>
-            </div>
+       
 
             <script>
       feather.replace();
